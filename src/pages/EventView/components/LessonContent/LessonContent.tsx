@@ -1,51 +1,18 @@
-import { gql, useQuery } from "@apollo/client";
 import { LessonVideo } from "./components/LessonVideo";
 import { LessonInfo } from "./components/LessonInfo";
 import { Anchors } from "../../../../components/Anchors";
 import { Cards } from "../../../../components/Cards";
 import { Loading } from "../../../../components/Loading";
+import { GetLessonBySlugQuery } from './../../../../graphql';
 
 // @todo: create responsiviness of the app.
-// @todo: clean up app, create an file for the querys; create a file for the interfaces and types
-
-const GET_LESSON_BY_SLUG_QUERY = gql`
-  query GetLessonBySlug($slug: String) {
-  lesson(where: {slug: $slug}) {
-    title
-    description
-    videoId
-    teacher {
-      avatarURL
-      bio
-      name
-    }
-  }
-}
-`
-
-interface IGetLessonBySlugQueryResponse {
-  lesson: {
-    title: string
-    description: string
-    videoId: string
-    teacher: {
-      avatarURL: string
-      bio: string
-      name: string
-    }
-  }
-}
 
 interface LessonContent {
   lessonSlug: string;
 }
 
 export function LessonContent(prop: LessonContent) {
-  const { data } = useQuery<IGetLessonBySlugQueryResponse>(GET_LESSON_BY_SLUG_QUERY, {
-    variables: {
-      slug: prop.lessonSlug,
-    }
-  })
+  const data = GetLessonBySlugQuery(prop.lessonSlug);
 
   if (!data){
     return <Loading />

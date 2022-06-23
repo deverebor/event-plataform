@@ -1,11 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
 import { LessonVideo } from "./components/LessonVideo";
 import { LessonInfo } from "./components/LessonInfo";
-import { Anchors } from "../Anchors";
-import { Cards } from "../Cards";
-import { Loading } from "../Loading";
+import { Anchors } from "../../../../components/Anchors";
+import { Cards } from "../../../../components/Cards";
+import { Loading } from "../../../../components/Loading";
 
-// @todo: refactor this component responsabilitys, only show Video and no more.
 // @todo: create responsiviness of the app.
 // @todo: clean up app, create an file for the querys; create a file for the interfaces and types
 

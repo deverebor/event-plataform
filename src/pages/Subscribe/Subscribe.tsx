@@ -6,8 +6,10 @@ import { CreateSubscriberMutation } from "../../graphql";
 export function Subscribe() {
   const navigate = useNavigate()
 
+  const [error, setError] = useState<boolean>(false)
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  
   const createNewUser = CreateSubscriberMutation(name, email).createSubscriber;
   const loadingMutation = CreateSubscriberMutation().loading;
 
@@ -22,14 +24,19 @@ export function Subscribe() {
   async function handleSubscribe(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    await createNewUser({
-      variables: {
-        name,
-        email
-      }
-    })
+    try {
+      await createNewUser({
+        variables: {
+          name,
+          email
+        }
+      })
 
-   navigate('/event')
+      navigate('/event')
+
+    }catch(error: any) {
+      setError(true)
+    }
   }
 
   return (
@@ -49,7 +56,12 @@ export function Subscribe() {
 
         <div className="p-8 bg-gary-700 border border-gray-500 rounded">
           <b className="text-2xl mb-6 block">Inscreva-se gratuitamente</b>
-
+          {
+            error && 
+            <p className="text-red-400 text-sm my-2 block">
+              Usuário já cadastrado, utilize um email diferente
+            </p>
+          }
           <form onSubmit={handleSubscribe} className="flex flex-col gap-2 w-full">
             <input
               className="bg-gray-900 rounded px-5 h-14"
@@ -88,7 +100,7 @@ export function Subscribe() {
       <img 
         className="mt-10"
         src="/src/assets/code-mockup.png" 
-        alt="Imagem mostrando códigos React" 
+        alt="Imagem mostrando códigos em React" 
       />
     </div>
   );

@@ -1,4 +1,3 @@
-
 interface LessonInfoProp {
   title: string
   description: string

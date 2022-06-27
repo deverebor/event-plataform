@@ -3,7 +3,7 @@ import { LessonInfo } from "./components/LessonInfo";
 import { Anchors } from "../../../../components/Anchors";
 import { Cards } from "../../../../components/Cards";
 import { Loading } from "../../../../components/Loading";
-import { GetLessonBySlugQuery } from './../../../../graphql';
+import { useGetLessonBySlugQuery } from './../../../../graphql/generated';
 
 // @todo: create responsiviness of the app.
 
@@ -12,9 +12,13 @@ interface LessonContent {
 }
 
 export function LessonContent(prop: LessonContent) {
-  const data = GetLessonBySlugQuery(prop.lessonSlug);
+  const { data } = useGetLessonBySlugQuery({
+    variables: {
+      slug: prop.lessonSlug,
+    },
+  });
 
-  if (!data){
+  if (!data || !data.lesson) {
     return <Loading />
   }
   
@@ -24,13 +28,16 @@ export function LessonContent(prop: LessonContent) {
 
       <div className="p-8 max-w-[1100px] mx-auto">
         <div className="flex items-start gap-16">
-          <LessonInfo 
-            title={data.lesson.title}
-            description={data.lesson.description}
-            teacherAvatarURL={data.lesson.teacher.avatarURL}
-            teacherName={data.lesson.teacher.name}
-            teacherBio={data.lesson.teacher.bio}
-          />
+          {
+            data.lesson.teacher && (
+              <LessonInfo 
+              title={data.lesson.title}
+              description={data.lesson.description}
+              teacherAvatarURL={data.lesson.teacher.avatarURL}
+              teacherName={data.lesson.teacher.name}
+              teacherBio={data.lesson.teacher.bio}
+            />
+          )}
 
           <div className="flex flex-col gap-4">
             <Anchors primary anchorTitle="Comunidade no Discord" />

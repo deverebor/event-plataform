@@ -1,7 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../../components/Logo";
-import { CreateSubscriberMutation } from "../../graphql";
+import { useCreateSubscriberMutation } from "../../graphql/generated";
 
 export function Subscribe() {
   const navigate = useNavigate()
@@ -10,8 +10,7 @@ export function Subscribe() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   
-  const createNewUser = CreateSubscriberMutation(name, email).createSubscriber;
-  const loadingMutation = CreateSubscriberMutation().loading;
+  const [ createNewUser, { loading } ] = useCreateSubscriberMutation();
 
   function handleUserName(event: ChangeEvent<HTMLInputElement>) {
     setName(event.target.value);
@@ -78,7 +77,7 @@ export function Subscribe() {
 
             <button 
               type="submit"
-              disabled={loadingMutation}
+              disabled={loading}
               className="
               mt-4 
               bg-green-500 

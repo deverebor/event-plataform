@@ -1,11 +1,9 @@
 import { LessonVideo } from "./components/LessonVideo";
 import { LessonInfo } from "./components/LessonInfo";
-import { Anchors } from "../../../../components/Anchors";
-import { Cards } from "../../../../components/Cards";
-import { Loading } from "../../../../components/Loading";
-import { useGetLessonBySlugQuery } from './../../../../graphql/generated';
-
-// @todo: create responsiviness of the app.
+import { Anchors } from "components/Anchors";
+import { Cards } from "components/Cards";
+import { Loading } from "components/Loading";
+import { useGetLessonBySlugQuery } from 'graphql/generated';
 
 interface LessonContent {
   lessonSlug: string;

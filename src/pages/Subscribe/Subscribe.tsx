@@ -1,7 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { Logo } from "../../components/Logo";
-import { useCreateSubscriberMutation } from "../../graphql/generated";
+import { Logo } from "components/Logo";
+import { useCreateSubscriberMutation } from "graphql/generated";
 
 export function Subscribe() {
   const navigate = useNavigate()
@@ -39,8 +39,8 @@ export function Subscribe() {
   }
 
   return (
-    <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
-      <div className="w-full max-w-[1100px] flex items-center justify-between mt-20 mx-auto">
+    <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center px-5">
+      <div className="w-full max-w-[1100px] flex lg:flex-row flex-col items-center justify-between mt-20 mx-auto">
         <div className="max-w-[640px]">
           <Logo />
 
@@ -53,7 +53,7 @@ export function Subscribe() {
           </p>
         </div>
 
-        <div className="p-8 bg-gary-700 border border-gray-500 rounded">
+        <div className="p-8 bg-gary-700 border border-gray-500 bg-gray-700 rounded lg:my-auto my-5">
           <b className="text-2xl mb-6 block">Inscreva-se gratuitamente</b>
           {
             error && 
